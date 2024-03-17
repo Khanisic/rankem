@@ -8,11 +8,19 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      colors: {
+        'dark': '#1B1E24',
+        'darkest': '#121418',
+        'lime': '#FFD155',
+        'jade': '#00C299',
+        'lavender': '#7269E3',
+        'indigo': '#50A2FF',
+        'peach': '#FCC699',
       },
+      fontFamily: {
+        'funky': ["Love Ya Like A Sister"],
+        'chill': ["Itim"]
+      }
     },
   },
   plugins: [],
