@@ -1,6 +1,4 @@
-import { UserButton } from "@clerk/nextjs";
-
-const DashboardLayout = ({
+const RankLayout = ({
     children
 }: {
     children: React.ReactNode;
@@ -14,4 +12,4 @@ const DashboardLayout = ({
     );
 }
 
-export default DashboardLayout;
+export default RankLayout;

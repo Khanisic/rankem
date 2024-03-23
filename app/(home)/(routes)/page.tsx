@@ -6,7 +6,7 @@ const HomePage = (
         <div>
             <div>
                 <UserButton afterSignOutUrl="/" />
-                <p className="font-funky text-2xl text-jade">Need to put the 3 options here - create, join, my games</p>
+                <p className="font-funky text-2xl text-jade">3 boxes</p>
             </div>
         </div>
     );

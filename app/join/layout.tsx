@@ -1,6 +1,5 @@
-import { UserButton } from "@clerk/nextjs";
 
-const DashboardLayout = ({
+const Join = ({
     children
 }: {
     children: React.ReactNode;
@@ -14,4 +13,4 @@ const DashboardLayout = ({
     );
 }
 
-export default DashboardLayout;
+export default Join;
