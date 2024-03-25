@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Itim&family=Love+Ya+Like+A+Sister&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .input-underline::after {
+    content: '';
+    display: block;
+    width: 50%; /* This controls the width of your underline */
+    height: 2px; /* This controls the thickness of your underline */
+    position: absolute;
+    bottom: 0; /* Adjust if you want to change vertical position */
+    left: 50%;
+    transform: translateX(-50%); /* Center the line */
+    background: currentColor; /* Use the text color for the line */
+  }
+}
