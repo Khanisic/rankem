@@ -1,7 +1,7 @@
 
-"use client";import React, { useState, ChangeEvent, useRef } from 'react';
+"use client";
 
-export const config = { runtime: 'client' };
+import React, { useState, ChangeEvent, useRef } from 'react';
 
 export default function JoinCode() {
     const [code, setCode] = useState<string[]>(Array(6).fill(''));
