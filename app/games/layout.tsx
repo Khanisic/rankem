@@ -4,8 +4,8 @@ const RankLayout = ({
     children: React.ReactNode;
 }) => {
     return (
-        <div className="h-screen w-full flex justify-center items-center bg-dark px-5 md:px-10">
-            <main className="bg-darkest py-20 px-4 md:p-16 rounded-xl flex flex-wrap gap-8 items-center justify-center w-full">
+        <div className="h-screen w-full flex justify-center items-center bg-dark">
+            <main className="bg-darkest p-10 md:p-20 rounded-lg">
                 {children}
             </main>
         </div>

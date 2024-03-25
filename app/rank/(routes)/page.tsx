@@ -45,7 +45,7 @@ const Rank = () => {
                         <div className="bg-peach px-10 py-2 rounded-lg cursor-pointer" onClick={() => {
                             setCategory((cat) => cat - 1)
                         }}>
-                            <p className="text-darkest font-funky text-xl">Previous Category</p>
+                            <p className="text-darkest font-funky text-md">Previous Category</p>
                         </div>
                     )
                 }
@@ -54,7 +54,7 @@ const Rank = () => {
                         <div className="bg-jade px-10 py-2 rounded-lg cursor-pointer" onClick={() => {
                             setCategory((cat) => cat + 1)
                         }}>
-                            <p className="text-darkest font-funky text-xl">Next Category</p>
+                            <p className="text-darkest font-funky text-md">Next Category</p>
                         </div>
                     )
                 }
