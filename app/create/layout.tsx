@@ -5,8 +5,7 @@ const CreateLayout = ({
 }) => {
     return (
         <div className="h-screen w-full flex justify-center items-center bg-dark px-5 md:px-10">
-            <main className="bg-darkest py-20 px-4 md:p-16 rounded-xl flex flex-wrap gap-8 items-center justify-center w-full">
-                {children}
+            <main className="bg-darkest ">
                 {children}
             </main>
         </div>
