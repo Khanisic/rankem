@@ -7,7 +7,7 @@ interface Params {
     path: string,
   }
 
-export async function fetchPosts(pageNumber = 1, pageSize = 20) {
+export async function createGame() {
     connectToDB();
 
   }
