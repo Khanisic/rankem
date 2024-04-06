@@ -1,0 +1,37 @@
+import mongoose from "mongoose";
+
+const gameSchema = new mongoose.Schema({
+    id: {
+        type: String,
+        required: true,
+        unique: true,
+    },
+    created_by:
+    {
+        type: String,
+        required: true,
+        alias: 'user_email'
+
+    },
+    friends: [
+        {
+            type: String,
+            required : true
+        },
+      
+    ],
+    categories: [
+        {
+            type: String,
+            required : true
+        }
+    ],
+    anonymous:
+    {
+        type: Boolean, 
+        required: true
+    }
+
+}, { timestamps: true });
+
+const Games = mongoose.model('Games', gameSchema);
