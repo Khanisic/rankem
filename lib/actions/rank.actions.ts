@@ -7,8 +7,8 @@ interface Params {
     path: string,
   }
 
+
 export async function createGame() {
     connectToDB();
-
   }
   
