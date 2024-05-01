@@ -36,7 +36,7 @@ export default function JoinCode() {
                                 inputMode="numeric"
                                 value={digit}
                                 onChange={(e: ChangeEvent<HTMLInputElement>) => handleInputChange(index, e.target.value)}
-                                ref={el => inputRefs.current[index] = el} // Set the ref
+                                ref={el => { inputRefs.current[index] = el }}  // Set the ref
                             />
                         </div>
                     ))}
