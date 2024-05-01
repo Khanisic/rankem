@@ -20,7 +20,6 @@ const Create = () => {
         <div className="h-screen w-full flex justify-center items-center bg-dark px-5 md:px-10">
             <main className="bg-darkest py-20 px-4 md:p-16 rounded-xl flex flex-col items-center justify-center w-full">
 
-                {/* Code with background */}
                 <div className="w-full flex justify-center">
                     <span className="bg-indigo text-white font-funky py-2 px-4 text-xl rounded-lg " >Some catchy line here</span>
                 </div>
