@@ -12,7 +12,9 @@ const resultSchema = new mongoose.Schema({
             }]
         },
     }],
+    usersRanked: [{ type: String, required: true }],
     user_entries: [{
+        userEmail: { type: String, required: false },
         category: {
             name: { type: String, required: false },
             results: [{
@@ -25,4 +27,6 @@ const resultSchema = new mongoose.Schema({
 
 
 
-const Result = mongoose.model('Result', resultSchema);
+const Results = mongoose.models.Results || mongoose.model('Results', resultSchema);
+
+export default Results

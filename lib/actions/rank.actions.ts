@@ -1,8 +1,28 @@
 "use server"
 
 import Games from "../models/games.model";
+import Results from "../models/results.model";
 import dbConnect from "../mongoose";
 import { generateCode } from "../util";
+
+// Define the structure of a single ranking
+interface Ranking {
+  friend: string;
+  points: number;
+}
+
+// Define the structure for the rankings by category
+interface Rankings {
+  [category: string]: string[]; // This assumes rankings are provided as arrays of friend names by category
+}
+
+// Define the structure for the results to be stored in the database
+interface ResultEntry {
+  category: {
+    name: string;
+    results: Ranking[];
+  };
+}
 
 
 export async function createGame(email: string, friends: string[], categories: string[], anonymous: boolean) {
@@ -37,36 +57,65 @@ export async function createGame(email: string, friends: string[], categories: s
 
 
 
-// export async function createCourse(values: any) {
-//   try {
-//       dbConnect();
+export async function fetchGame(id: string) {
+  try {
+    dbConnect();
 
-//       const courseExists = await Course.find(
-//           { courseID: values.courseID }
-//       )
+    const gameExists = await Games.findOne({
+      id: id
+    })
 
-//       let section_id;
-//       if (courseExists.length > 0) {
-//           section_id = courseExists[courseExists.length - 1].section + 1;
-//       } else {
-//           section_id = 1;
-//       }
+    return gameExists
 
-//       const newCourse = await Course.create({
-//           courseTitle: values.title,
-//           img: values.img,
-//           section: section_id,
-//           courseID: values.courseID
-//       })
+  } catch (error: any) {
+    throw new Error(`${error.message}`);
 
-//       return ({
-//           courseTitle: newCourse.title,
-//           img: newCourse.img,
-//           section: newCourse,
-//           courseID: newCourse.courseID
-//       })
+  }
+}
 
-//   } catch (error: any) {
-//       throw new Error(`Failed to fetch user: ${error.message}`);
-//   }
-// }
+
+export async function submitRankingsandResults(rankings: Rankings, id: string, email: string): Promise<void> {
+  try {
+    await dbConnect();
+
+    const game = await Games.findOne({
+      id
+    })
+    console.log(game._id)
+    const categories = Object.keys(rankings);
+    const numberOfNames = rankings[categories[0]].length; // Assumes at least one category exists
+    let results: ResultEntry[] = [];
+
+    categories.forEach(category => {
+      const rankedResults: Ranking[] = rankings[category].map((name, index) => ({
+        friend: name,
+        points: numberOfNames - index // Assign points based on rank
+      }));
+
+      results.push({
+        category: {
+          name: category,
+          results: rankedResults
+        }
+      });
+
+      console.log(rankedResults);
+    });
+
+    console.log("-------------------------------------------------");
+
+    const createdResult = await Results.create({
+      id: game._id,
+      published: false,
+      results,
+      usersRanked: [email]
+    });
+
+    console.log("Result stored:", createdResult);
+
+  } catch (error: any) {
+    console.error("Error submitting rankings and results:", error.message);
+    throw new Error(`${error.message}`);
+  }
+}
+

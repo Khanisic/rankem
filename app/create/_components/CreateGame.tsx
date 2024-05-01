@@ -22,7 +22,7 @@ function CreateGame({ email }: any) {
     const create = async () => {
         const newGameID = await createGame(email, friends, categories, anonymous)
         toast.success("Game created, redirecting to game now")
-        // router.push(`/rank/${newGameID}`)
+        router.push(`/rank/${newGameID}`)
     }
 
     return (
