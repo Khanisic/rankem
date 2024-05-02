@@ -56,8 +56,9 @@ function RankFriends({ friends, categoriesReceived, code, isCreator, email }: an
                     })
                 }} />
             </div>
-            <div className="flex justify-start items-start">
+            <div className="flex flex-col justify-start items-start">
                 <p className="text-white font-funky my-2 text-xl">Category {`(${category + 1}/${categories.length}): `}  <span className='bg-lime text-black px-4 py-1 rounded-lg'>{categories[category]}</span> </p>
+                <p className="text-white font-funky my-2 text-xl"> <span className='text-lime'>Drag</span>  and <span className='text-jade'>drop</span>  the names to arrange it with your <span className='text-indigo'>rankings</span>! </p>
             </div>
 
             <Reorder.Group axis="y" values={names} onReorder={setNames} className="flex flex-col gap-2 w-full justify-center items-center">
