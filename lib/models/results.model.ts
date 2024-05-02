@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const resultSchema = new mongoose.Schema({
-    id: { type: mongoose.Schema.Types.ObjectId, ref: "Games", required: true, unique: true, },
+    id: { type: mongoose.Schema.Types.ObjectId, ref: "Games", required: true },
     published: { type: Boolean, required: true },
     results: [{
         category: {

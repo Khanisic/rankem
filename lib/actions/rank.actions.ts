@@ -74,48 +74,106 @@ export async function fetchGame(id: string) {
 }
 
 
-export async function submitRankingsandResults(rankings: Rankings, id: string, email: string): Promise<void> {
+export async function submitRankingsandResults(rankings: Rankings, id: string, email: string) {
   try {
     await dbConnect();
+
+
+    const categories = Object.keys(rankings);
+    const numberOfNames = rankings[categories[0]].length;
+    let results: ResultEntry[] = [];
 
     const game = await Games.findOne({
       id
     })
-    console.log(game._id)
-    const categories = Object.keys(rankings);
-    const numberOfNames = rankings[categories[0]].length; // Assumes at least one category exists
-    let results: ResultEntry[] = [];
 
-    categories.forEach(category => {
-      const rankedResults: Ranking[] = rankings[category].map((name, index) => ({
-        friend: name,
-        points: numberOfNames - index // Assign points based on rank
-      }));
+    const existingResults = await Results.findOne({
+      id: game._id
+    })
 
-      results.push({
-        category: {
-          name: category,
-          results: rankedResults
-        }
-      });
+    if (existingResults.usersRanked.includes(email)) return
+    
+    if (existingResults) {
 
-      console.log(rankedResults);
-    });
+      existingResults.results.forEach(category => {
 
-    console.log("-------------------------------------------------");
+        let newRankings = rankings[category.category.name]
 
-    const createdResult = await Results.create({
-      id: game._id,
-      published: false,
-      results,
-      usersRanked: [email]
-    });
+        const rankedResults: Ranking[] = category.category.results.map((res, index) => ({
+          friend: res.friend,
+          points: res.points + numberOfNames - newRankings.indexOf(res.friend)
+        }));
 
-    console.log("Result stored:", createdResult);
+        results.push({
+          category: {
+            name: category.category.name,
+            results: rankedResults
+          }
+        });
+      })
 
+      existingResults.results = results;
+      existingResults.usersRanked.push(email)
+      existingResults.save();
+
+      return { msg: "Done" }
+    }
+
+    // categories.forEach(category => {
+    //   const rankedResults: Ranking[] = rankings[category].map((name, index) => ({
+    //     friend: name,
+    //     points: numberOfNames - index // Assign points based on rank
+    //   }));
+
+    //   results.push({
+    //     category: {
+    //       name: category,
+    //       results: rankedResults
+    //     }
+    //   });
+
+    //   console.log(rankedResults);
+    // });
+
+    // console.log("-------------------------------------------------");
+
+    // const createdResult = await Results.create({
+    //   id: game._id,
+    //   published: false,
+    //   results,
+    //   usersRanked: [email]
+    // });
+
+    // console.log("Result stored:", createdResult);
+
+    // return { msg: "Done" }
   } catch (error: any) {
     console.error("Error submitting rankings and results:", error.message);
     throw new Error(`${error.message}`);
   }
 }
 
+
+export async function publishResults(id: string) {
+  try {
+    await dbConnect();
+
+    const game = await Games.findOne({
+      id
+    })
+
+
+    const result = await Results.findOne({
+      id: game._id
+    })
+
+    result.published = true;
+
+    await result.save();
+
+    return { msg: "Published" }
+
+  } catch (error) {
+    console.log(error)
+  }
+}

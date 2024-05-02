@@ -14,7 +14,14 @@ const Rank = async ({ params }: { params: { rankId: string } }) => {
     return (
         <div className="flex flex-col gap-6 w-full">
             <div className='w-full'>
-                <RankFriends friends={gameDetails.friends} email={user.emailAddresses[0].emailAddress} isCreator={user.emailAddresses[0].emailAddress == gameDetails.created_by}  categoriesReceived={gameDetails.categories} code={params.rankId} />
+                {
+                    gameDetails ?
+                        <RankFriends friends={gameDetails.friends} email={user.emailAddresses[0].emailAddress} isCreator={user.emailAddresses[0].emailAddress == gameDetails.created_by} categoriesReceived={gameDetails.categories} code={params.rankId} />
+                        :
+                        <div>
+                            <p className='text-white font-funky text-2xl'>Game with ID: {params.rankId} does not exist.</p>
+                        </div>
+                }
             </div>
         </div>
     );

@@ -1,7 +1,8 @@
 "use client";
 
-import { submitRankingsandResults } from '@/lib/actions/rank.actions';
+import { publishResults, submitRankingsandResults } from '@/lib/actions/rank.actions';
 import { Reorder } from 'framer-motion'
+import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
 import toast from 'react-hot-toast';
 
@@ -12,8 +13,8 @@ function RankFriends({ friends, categoriesReceived, code, isCreator, email }: an
     const [rankings, setRankings] = useState<{ [key: string]: string[] }>({});
 
     const [submitted, setSubmitted] = useState(false)
-
-    console.log(rankings);
+    console.log(rankings)
+    const router = useRouter()
 
     const nextStep = () => {
         // Save current rankings in the state
@@ -36,15 +37,21 @@ function RankFriends({ friends, categoriesReceived, code, isCreator, email }: an
         console.log("Submitting Rankings: ", updatedRankings);
 
         const submitted = submitRankingsandResults(updatedRankings, code, email).then((res: any) => {
-            if (res) toast.success("Submitted rankings")
+            console.log(res)
+            setSubmitted(true)
+            res && res.msg && toast.success("Submitted rankings")
+            router.push(`/results/${code}`)
         })
 
     };
 
     const publishRankings = () => {
         if (isCreator) {
-            // Additional logic if the user is the creator
-            console.log("Publishing Rankings: ", rankings);
+            console.log("here")
+            publishResults(code).then((res) => {
+                console.log(res)
+            });
+            toast.success("Results published")
         }
     }
     return (
@@ -53,10 +60,10 @@ function RankFriends({ friends, categoriesReceived, code, isCreator, email }: an
                 <p className="text-white font-funky text-2xl">Code: {code}</p>
             </div>
             <div className="flex justify-start items-start">
-                <p className="text-white font-funky text-xl">Category {`(${category + 1}/${categories.length}): `}  <span className='bg-lime text-black px-4 py-2 rounded-lg'>{categories[category]}</span> </p>
+                <p className="text-white font-funky my-2 text-xl">Category {`(${category + 1}/${categories.length}): `}  <span className='bg-lime text-black px-4 py-1 rounded-lg'>{categories[category]}</span> </p>
             </div>
 
-            <Reorder.Group axis="y" values={names} onReorder={setNames} className="flex flex-col gap-2 w-full justify-center">
+            <Reorder.Group axis="y" values={names} onReorder={setNames} className="flex flex-col gap-2 w-full justify-center items-center">
                 {names.map((name, index) => (
                     <Reorder.Item key={name} value={name} className="text-white px-6 py-2 bg-lavender rounded-xl font-chill w-fit text-center">
                         {index + 1}. {name}

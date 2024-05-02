@@ -30,7 +30,7 @@ function CreateGame({ email }: any) {
 
             {/* Code with background */}
             <div className="w-full flex justify-center">
-                <span className="bg-indigo text-white font-funky py-2 px-4 text-xl rounded-lg " >Some catchy line here</span>
+                <span className="bg-indigo text-white font-funky py-2 px-4 text-xl rounded-lg " >If in doubt, kick em out - Immigration Policy</span>
             </div>
 
             <div className="flex flex-wrap md:flex-nowrap gap-10 mt-6 justify-center">
@@ -123,7 +123,7 @@ function CreateGame({ email }: any) {
                 friends.length > 4 && categories.length > 0 &&
 
                 <div className="flex w-full justify-center  flex-col items-center">
-                    <div className='flex gap-2 cursor-pointer items-center text-white font-chill'>
+                    {/* <div className='flex gap-2 cursor-pointer items-center text-white font-chill'>
                         <input
                             type="checkbox"
                             checked={anonymous}
@@ -131,7 +131,7 @@ function CreateGame({ email }: any) {
                             className="w-4 h-4 accent-lime"
                         />
                         <label>Anonymous</label>
-                    </div>
+                    </div> */}
                     <div onClick={() => create()} className="bg-jade my-2  hover:border-jade hover:text-jade hover:border-2 cursor-pointer duration-100 ease-in-out transition-all  hover:bg-transparent text-white py-2 px-8 font-funky rounded-full mt-8">
                         Create
                     </div>

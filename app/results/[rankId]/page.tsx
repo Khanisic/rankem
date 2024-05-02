@@ -4,19 +4,28 @@ import Results from '../_components/Results';
 import { fetchGame } from '@/lib/actions/rank.actions';
 import { currentUser } from '@clerk/nextjs';
 import { fetchResults } from '@/lib/actions/results.actions';
-const ResultsPage = async ({ params }) => {
+const ResultsPage = async ({ params }: { params: { rankId: string } }) => {
     const gameDetails = await fetchResults(params.rankId);
     console.log(gameDetails);
 
-    
+
     const gameData = {
         ...gameDetails,
-        code: params.rankId  
+        code: params.rankId
     };
 
     return (
         <div>
-            <Results game={gameData} />
+            {
+                gameDetails ?
+
+                    <Results game={gameData} />
+
+                    :
+                    <div>
+                        <p className='text-white font-funky text-2xl'>Game with ID: {params.rankId} does not exist.</p>
+                    </div>
+            }
         </div>
     );
 }
