@@ -4,7 +4,7 @@ const CreateLayout = ({
     children: React.ReactNode;
 }) => {
     return (
-        <div className="h-screen w-full flex justify-center items-center bg-dark px-5 md:px-10">
+        <div className="min-h-screen h-full w-full flex justify-center items-center bg-dark">
             <main className="bg-darkest ">
                 {children}
             </main>

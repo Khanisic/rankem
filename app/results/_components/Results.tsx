@@ -1,14 +1,21 @@
 "use client";
+import ShareIcon from "@/components/icons/ShareIcon";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
-const Results = ({ game, voters }: any) => {
+const Results = ({ game, voters, code }: any) => {
     const [category, setCategory] = useState(0);
     const sortedResults = game.results[category].category.results.sort((a, b) => b.points - a.points);
 
     return (
         <div className="flex flex-col items-center gap-6 w-full">
-            <div className="flex justify-center w-full">
-                <p className="text-white font-funky text-2xl">Code: {game.code}</p>
+            <div className="flex justify-center w-full gap-2">
+                <p className="text-white font-funky text-2xl">Code: {code} | Share: </p>
+                <ShareIcon onClick={() => {
+                    navigator.clipboard.writeText(`rankem-seven.vercel.app/rank/${code}`).then((res) => {
+                        toast.success("Link copied")
+                    })
+                }} />
             </div>
 
             <div className="flex flex-col items-center gap-4 w-full">

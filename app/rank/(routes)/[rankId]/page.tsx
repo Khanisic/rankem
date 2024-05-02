@@ -21,7 +21,6 @@ const Rank = async ({ params }: { params: { rankId: string } }) => {
                 <Link href={`/results/${params.rankId}`}>
                     <button
                         className="bg-jade px-10 py-2 rounded-lg cursor-pointer"
-
                     >
                         <p className="text-darkest font-funky text-md">View Results</p>
                     </button>
