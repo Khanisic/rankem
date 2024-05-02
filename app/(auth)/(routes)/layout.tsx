@@ -12,7 +12,9 @@ const AuthLayout = ({
             <span className="font-semibold text-jade font-funky"> rank </span>
             your friends based on <span className="font-semibold text-jade font-funky">categories</span> .</p>
         </div>
+
         {children}
+
       </main>
     </div>
   );

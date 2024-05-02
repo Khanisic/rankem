@@ -18,11 +18,7 @@ const HomePage = () => {
                     </div>
                 </Link>
 
-                <Link href="/games" >
-                    <div className="text-black text-center outline-none border-none bg-jade hover:bg-jade-300 font-funky py-2 px-16 border border-jade-700 rounded-full shadow-sm">
-                        My Games
-                    </div>
-                </Link>
+     
 
             </div>
         </div>

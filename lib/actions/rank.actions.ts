@@ -25,7 +25,7 @@ interface ResultEntry {
 }
 
 
-export async function createGame(email: string, friends: string[], categories: string[], anonymous: boolean) {
+export async function createGame(email: string, friends: string[], categories: string[]) {
   try {
     dbConnect();
     const code = generateCode();
@@ -44,7 +44,6 @@ export async function createGame(email: string, friends: string[], categories: s
       created_by: email,
       friends,
       categories,
-      anonymous
     })
 
     return newGame.id
@@ -91,10 +90,8 @@ export async function submitRankingsandResults(rankings: Rankings, id: string, e
       id: game._id
     })
 
-    if (existingResults.usersRanked.includes(email)) return
-    
-    if (existingResults) {
 
+    if (existingResults) {
       existingResults.results.forEach(category => {
 
         let newRankings = rankings[category.category.name]
@@ -113,40 +110,40 @@ export async function submitRankingsandResults(rankings: Rankings, id: string, e
       })
 
       existingResults.results = results;
-      existingResults.usersRanked.push(email)
+      game.usersRanked.push(email)
+      game.save()
       existingResults.save();
 
-      return { msg: "Done" }
+      return { msg: "Rankings posted" }
     }
 
-    // categories.forEach(category => {
-    //   const rankedResults: Ranking[] = rankings[category].map((name, index) => ({
-    //     friend: name,
-    //     points: numberOfNames - index // Assign points based on rank
-    //   }));
+    categories.forEach(category => {
+      const rankedResults: Ranking[] = rankings[category].map((name, index) => ({
+        friend: name,
+        points: numberOfNames - index 
+      }));
 
-    //   results.push({
-    //     category: {
-    //       name: category,
-    //       results: rankedResults
-    //     }
-    //   });
+      results.push({
+        category: {
+          name: category,
+          results: rankedResults
+        }
+      });
 
-    //   console.log(rankedResults);
-    // });
+      console.log(rankedResults);
+    });
 
-    // console.log("-------------------------------------------------");
+    const createdResult = await Results.create({
+      id: game._id,
+      published: false,
+      results,
+    });
+    game.usersRanked.push(email)
+    game.save()
 
-    // const createdResult = await Results.create({
-    //   id: game._id,
-    //   published: false,
-    //   results,
-    //   usersRanked: [email]
-    // });
+    console.log("Result stored:", createdResult);
 
-    // console.log("Result stored:", createdResult);
-
-    // return { msg: "Done" }
+    return { msg: "Rankings posted" }
   } catch (error: any) {
     console.error("Error submitting rankings and results:", error.message);
     throw new Error(`${error.message}`);
@@ -154,26 +151,26 @@ export async function submitRankingsandResults(rankings: Rankings, id: string, e
 }
 
 
-export async function publishResults(id: string) {
-  try {
-    await dbConnect();
+// export async function publishResults(id: string) {
+//   try {
+//     await dbConnect();
 
-    const game = await Games.findOne({
-      id
-    })
+//     const game = await Games.findOne({
+//       id
+//     })
 
 
-    const result = await Results.findOne({
-      id: game._id
-    })
+//     const result = await Results.findOne({
+//       id: game._id
+//     })
 
-    result.published = true;
+//     result.published = true;
 
-    await result.save();
+//     await result.save();
 
-    return { msg: "Published" }
+//     return { msg: "Published" }
 
-  } catch (error) {
-    console.log(error)
-  }
-}
+//   } catch (error) {
+//     console.log(error)
+//   }
+// }

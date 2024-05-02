@@ -12,17 +12,6 @@ const resultSchema = new mongoose.Schema({
             }]
         },
     }],
-    usersRanked: [{ type: String, required: true }],
-    user_entries: [{
-        userEmail: { type: String, required: false },
-        category: {
-            name: { type: String, required: false },
-            results: [{
-                friend: { type: String, required: false },
-                points: { type: Number, required: false }
-            }]
-        },
-    }]
 }, { timestamps: true });
 
 

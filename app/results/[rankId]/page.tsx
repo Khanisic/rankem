@@ -5,12 +5,14 @@ import { fetchGame } from '@/lib/actions/rank.actions';
 import { currentUser } from '@clerk/nextjs';
 import { fetchResults } from '@/lib/actions/results.actions';
 const ResultsPage = async ({ params }: { params: { rankId: string } }) => {
-    const gameDetails = await fetchResults(params.rankId);
-    console.log(gameDetails);
+    const results = await fetchResults(params.rankId);
+    console.log(results);
 
+    const gameDetails = await fetchGame(params.rankId)
+    console.log(gameDetails.usersRanked.length)
 
     const gameData = {
-        ...gameDetails,
+        ...results,
         code: params.rankId
     };
 
@@ -18,9 +20,7 @@ const ResultsPage = async ({ params }: { params: { rankId: string } }) => {
         <div>
             {
                 gameDetails ?
-
-                    <Results game={gameData} />
-
+                    <Results voters={gameDetails.usersRanked.length} game={gameData} />
                     :
                     <div>
                         <p className='text-white font-funky text-2xl'>Game with ID: {params.rankId} does not exist.</p>

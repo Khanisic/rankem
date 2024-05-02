@@ -5,7 +5,7 @@ const gameSchema = new mongoose.Schema({
     created_by: { type: String, required: true, alias: 'user_email' },
     friends: [{ type: String, required: true },],
     categories: [{ type: String, required: true }],
-    anonymous: { type: Boolean, required: true }
+    usersRanked: [{ type: String, required: true }],
 }, { timestamps: true });
 
 const Games = mongoose.models.Games || mongoose.model('Games', gameSchema);
