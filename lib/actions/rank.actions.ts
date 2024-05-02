@@ -74,17 +74,48 @@ export async function fetchGame(id: string) {
 }
 
 
-export async function submitRankingsandResults(rankings: Rankings, id: string, email: string): Promise<void> {
+export async function submitRankingsandResults(rankings: Rankings, id: string, email: string) {
   try {
     await dbConnect();
+
+
+    const categories = Object.keys(rankings);
+    const numberOfNames = rankings[categories[0]].length;
+    let results: ResultEntry[] = [];
 
     const game = await Games.findOne({
       id
     })
-    console.log(game._id)
-    const categories = Object.keys(rankings);
-    const numberOfNames = rankings[categories[0]].length; // Assumes at least one category exists
-    let results: ResultEntry[] = [];
+
+    const existingResults = await Results.findOne({
+      id: game._id
+    })
+
+    if (existingResults) {
+
+      existingResults.results.forEach(category => {
+
+        let newRankings = rankings[category.category.name]
+
+        const rankedResults: Ranking[] = category.category.results.map((res, index) => ({
+          friend: res.friend,
+          points: res.points + numberOfNames - newRankings.indexOf(res.friend)
+        }));
+
+        results.push({
+          category: {
+            name: category.category.name,
+            results: rankedResults
+          }
+        });
+      })
+
+      existingResults.results = results;
+
+      existingResults.save();
+
+      return { msg: "Done" }
+    }
 
     categories.forEach(category => {
       const rankedResults: Ranking[] = rankings[category].map((name, index) => ({
@@ -113,9 +144,34 @@ export async function submitRankingsandResults(rankings: Rankings, id: string, e
 
     console.log("Result stored:", createdResult);
 
+    return { msg: "Done" }
   } catch (error: any) {
     console.error("Error submitting rankings and results:", error.message);
     throw new Error(`${error.message}`);
   }
 }
 
+
+export async function publishResults(id: string) {
+  try {
+    await dbConnect();
+
+    const game = await Games.findOne({
+      id
+    })
+
+
+    const result = await Results.findOne({
+      id: game._id
+    })
+
+    result.published = true;
+
+    await result.save();
+
+    return { msg: "Published" }
+
+  } catch (error) {
+    console.log(error)
+  }
+}

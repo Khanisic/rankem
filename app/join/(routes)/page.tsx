@@ -1,10 +1,12 @@
 
 "use client";
 
+import { useRouter } from 'next/navigation';
 import React, { useState, ChangeEvent, useRef } from 'react';
 
 export default function JoinCode() {
     const [code, setCode] = useState<string[]>(Array(6).fill(''));
+    const router = useRouter()
     const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
     console.log(code)
     const handleInputChange = (index: number, value: string) => {
@@ -17,6 +19,10 @@ export default function JoinCode() {
         }
     };
 
+    const joinNow = () => {
+        router.push(`/rank/${code[0]+code[1]+code[2]+code[3]+code[4]+code[5]}`)
+    }
+
     return (
         <div className="h-screen w-full flex justify-center items-center bg-dark px-5 md:px-10">
             <main className="bg-darkest py-20 px-4 md:p-16 rounded-xl flex flex-col items-center justify-center w-full">
@@ -27,7 +33,7 @@ export default function JoinCode() {
 
                 <div className="flex space-x-2 mb-8">
                     {code.map((digit, index) => (
-                        <div key={index} className="relative w-16 h-16">
+                        <div key={index} className="relative w-16 h-16 flex flex-wrap">
                             <input
                                 className="w-full h-full font-chill border-2 border-dashed  bg-jade rounded text-black text-center text-xl outline-none input-underline"
                                 maxLength={1}
@@ -42,7 +48,7 @@ export default function JoinCode() {
                     ))}
                 </div>
 
-                <button className="text-black bg-indigo font-funky border-none outline-none hover:bg-indigo px-6 py-2 rounded-full shadow-lg">
+                <button onClick={()=>{joinNow()}} className="text-black bg-indigo font-funky border-none outline-none hover:bg-indigo px-6 py-2 rounded-full shadow-lg">
                     Join now
                 </button>
 
