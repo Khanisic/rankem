@@ -11,16 +11,14 @@ import toast from 'react-hot-toast';
 function CreateGame({ email }: any) {
 
     const router = useRouter()
-    const [friends, setFriends] = useState<string[]>(["Alpha", "Beta", "Gama", "Neo", "Sun"]);
+    const [friends, setFriends] = useState<string[]>(["Add", "Your", "Friends", "Here"]);
     const [categories, setCategories] = useState<string[]>(["Angriest"]);
 
     const [friend, setFriend] = useState("")
     const [category, setCategory] = useState("")
 
-    const [anonymous, setAnonymous] = useState(false)
-
     const create = async () => {
-        const newGameID = await createGame(email, friends, categories, anonymous)
+        const newGameID = await createGame(email, friends, categories)
         toast.success("Game created, redirecting to game now")
         router.push(`/rank/${newGameID}`)
     }
@@ -123,15 +121,6 @@ function CreateGame({ email }: any) {
                 friends.length > 4 && categories.length > 0 &&
 
                 <div className="flex w-full justify-center  flex-col items-center">
-                    {/* <div className='flex gap-2 cursor-pointer items-center text-white font-chill'>
-                        <input
-                            type="checkbox"
-                            checked={anonymous}
-                            onChange={() => setAnonymous(!anonymous)}
-                            className="w-4 h-4 accent-lime"
-                        />
-                        <label>Anonymous</label>
-                    </div> */}
                     <div onClick={() => create()} className="bg-jade my-2  hover:border-jade hover:text-jade hover:border-2 cursor-pointer duration-100 ease-in-out transition-all  hover:bg-transparent text-white py-2 px-8 font-funky rounded-full mt-8">
                         Create
                     </div>

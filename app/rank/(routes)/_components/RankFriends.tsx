@@ -1,6 +1,6 @@
 "use client";
 
-import { publishResults, submitRankingsandResults } from '@/lib/actions/rank.actions';
+import { submitRankingsandResults } from '@/lib/actions/rank.actions';
 import { Reorder } from 'framer-motion'
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
@@ -45,15 +45,6 @@ function RankFriends({ friends, categoriesReceived, code, isCreator, email }: an
 
     };
 
-    const publishRankings = () => {
-        if (isCreator) {
-            console.log("here")
-            publishResults(code).then((res) => {
-                console.log(res)
-            });
-            toast.success("Results published")
-        }
-    }
     return (
         <div className='flex flex-col gap-4 w-full'>
             <div className="flex justify-center w-full">
@@ -96,15 +87,6 @@ function RankFriends({ friends, categoriesReceived, code, isCreator, email }: an
                         <p className="text-darkest font-funky text-md">Submit</p>
                     </button>
                 )}
-                {
-                    isCreator && categories.length - 1 == category &&
-                    <button
-                        className="bg-lime px-10 py-2 rounded-lg cursor-pointer"
-                        onClick={() => publishRankings()}
-                    >
-                        <p className="text-darkest font-funky text-md">Publish</p>
-                    </button>
-                }
             </div>
 
         </div>
