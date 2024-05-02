@@ -18,12 +18,9 @@ const ResultsPage = async ({ params }: { params: { rankId: string } }) => {
         <div>
             {
                 gameDetails ?
-                    gameDetails?.published ?
-                        <Results game={gameData} />
-                        :
-                        <div>
-                            <p className='text-white font-funky text-2xl'>Waiting for results!.</p>
-                        </div>
+
+                    <Results game={gameData} />
+
                     :
                     <div>
                         <p className='text-white font-funky text-2xl'>Game with ID: {params.rankId} does not exist.</p>
