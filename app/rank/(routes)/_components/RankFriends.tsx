@@ -5,6 +5,7 @@ import { Reorder } from 'framer-motion'
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
 import toast from 'react-hot-toast';
+import ShareIcon from "@/components/icons/ShareIcon"
 
 function RankFriends({ friends, categoriesReceived, code, isCreator, email }: any) {
     const [names, setNames] = useState(friends);
@@ -47,8 +48,13 @@ function RankFriends({ friends, categoriesReceived, code, isCreator, email }: an
 
     return (
         <div className='flex flex-col gap-4 w-full'>
-            <div className="flex justify-center w-full">
-                <p className="text-white font-funky text-2xl">Code: {code}</p>
+            <div className="flex justify-center w-full gap-2">
+                <p className="text-white font-funky text-2xl">Code: {code} | Share: </p>
+                <ShareIcon onClick={() => {
+                    navigator.clipboard.writeText(`rankem-seven.vercel.app/rank/${code}`).then((res) => {
+                        toast.success("Link copied")
+                    })
+                }} />
             </div>
             <div className="flex justify-start items-start">
                 <p className="text-white font-funky my-2 text-xl">Category {`(${category + 1}/${categories.length}): `}  <span className='bg-lime text-black px-4 py-1 rounded-lg'>{categories[category]}</span> </p>

@@ -20,7 +20,7 @@ const ResultsPage = async ({ params }: { params: { rankId: string } }) => {
         <div>
             {
                 gameDetails ?
-                    <Results voters={gameDetails.usersRanked.length} game={gameData} />
+                    <Results voters={gameDetails.usersRanked.length} code={params.rankId} game={gameData} />
                     :
                     <div>
                         <p className='text-white font-funky text-2xl'>Game with ID: {params.rankId} does not exist.</p>
