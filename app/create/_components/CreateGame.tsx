@@ -24,7 +24,7 @@ function CreateGame({ email }: any) {
     }
 
     return (
-        <main className="bg-darkest py-20 px-4 md:p-16 rounded-xl flex flex-col items-center justify-center min-h-80 w-full">
+        <main className="bg-darkest py-20 px-8 md:p-16 rounded-xl flex flex-col items-center justify-center min-h-80 w-full">
 
             {/* Code with background */}
             <div className="w-full flex justify-center">

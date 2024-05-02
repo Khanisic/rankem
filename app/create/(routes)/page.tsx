@@ -12,7 +12,7 @@ const Create = async () => {
     console.log(user.emailAddresses[0].emailAddress)
 
     return (
-        <div className="h-screen w-full flex justify-center items-center bg-dark px-5 md:px-10">
+        <div className="w-full flex justify-center items-center bg-dark rounded-lg">
             <CreateGame email={user.emailAddresses[0].emailAddress} />
         </div>
     );
