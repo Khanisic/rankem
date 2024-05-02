@@ -30,7 +30,7 @@ function CreateGame({ email }: any) {
 
             {/* Code with background */}
             <div className="w-full flex justify-center">
-                <span className="bg-indigo text-white font-funky py-2 px-4 text-xl rounded-lg " >Some catchy line here</span>
+                <span className="bg-indigo text-white font-funky py-2 px-4 text-xl rounded-lg " >If in doubt, kick em out - Immigration Policy</span>
             </div>
 
             <div className="flex flex-wrap md:flex-nowrap gap-10 mt-6 justify-center">

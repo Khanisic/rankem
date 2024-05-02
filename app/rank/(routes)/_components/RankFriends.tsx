@@ -63,7 +63,7 @@ function RankFriends({ friends, categoriesReceived, code, isCreator, email }: an
                 <p className="text-white font-funky my-2 text-xl">Category {`(${category + 1}/${categories.length}): `}  <span className='bg-lime text-black px-4 py-1 rounded-lg'>{categories[category]}</span> </p>
             </div>
 
-            <Reorder.Group axis="y" values={names} onReorder={setNames} className="flex flex-col gap-2 w-full justify-center">
+            <Reorder.Group axis="y" values={names} onReorder={setNames} className="flex flex-col gap-2 w-full justify-center items-center">
                 {names.map((name, index) => (
                     <Reorder.Item key={name} value={name} className="text-white px-6 py-2 bg-lavender rounded-xl font-chill w-fit text-center">
                         {index + 1}. {name}

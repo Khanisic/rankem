@@ -91,6 +91,8 @@ export async function submitRankingsandResults(rankings: Rankings, id: string, e
       id: game._id
     })
 
+    if (existingResults.usersRanked.includes(email)) return
+    
     if (existingResults) {
 
       existingResults.results.forEach(category => {
@@ -111,40 +113,40 @@ export async function submitRankingsandResults(rankings: Rankings, id: string, e
       })
 
       existingResults.results = results;
-
+      existingResults.usersRanked.push(email)
       existingResults.save();
 
       return { msg: "Done" }
     }
 
-    categories.forEach(category => {
-      const rankedResults: Ranking[] = rankings[category].map((name, index) => ({
-        friend: name,
-        points: numberOfNames - index // Assign points based on rank
-      }));
+    // categories.forEach(category => {
+    //   const rankedResults: Ranking[] = rankings[category].map((name, index) => ({
+    //     friend: name,
+    //     points: numberOfNames - index // Assign points based on rank
+    //   }));
 
-      results.push({
-        category: {
-          name: category,
-          results: rankedResults
-        }
-      });
+    //   results.push({
+    //     category: {
+    //       name: category,
+    //       results: rankedResults
+    //     }
+    //   });
 
-      console.log(rankedResults);
-    });
+    //   console.log(rankedResults);
+    // });
 
-    console.log("-------------------------------------------------");
+    // console.log("-------------------------------------------------");
 
-    const createdResult = await Results.create({
-      id: game._id,
-      published: false,
-      results,
-      usersRanked: [email]
-    });
+    // const createdResult = await Results.create({
+    //   id: game._id,
+    //   published: false,
+    //   results,
+    //   usersRanked: [email]
+    // });
 
-    console.log("Result stored:", createdResult);
+    // console.log("Result stored:", createdResult);
 
-    return { msg: "Done" }
+    // return { msg: "Done" }
   } catch (error: any) {
     console.error("Error submitting rankings and results:", error.message);
     throw new Error(`${error.message}`);
