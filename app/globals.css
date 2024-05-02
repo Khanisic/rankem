@@ -17,3 +17,32 @@
     background: currentColor; /* Use the text color for the line */
   }
 }
+
+
+.bg-lav{
+  background-image: url("/bg-lav.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.bg-jad{
+  background-image: url("/bg-jade.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.bg-lim{
+  background-image: url("/bg-lime.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.bg-peac{
+  background-image: url("/bg-peach.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}

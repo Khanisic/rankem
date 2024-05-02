@@ -6,9 +6,9 @@ const ResultsLayout = ({
     children: React.ReactNode;
 }) => {
     return (
-        <div className="min-h-screen h-full w-full flex justify-center items-center bg-dark">
+        <div className="min-h-screen h-full w-full flex justify-center items-center bg-peac bg-dark">
             <Link href="/">
-                <div className="bg-peach absolute top-5 left-5 px-10 py-2 rounded-lg cursor-pointer">
+                <div className="border-dark border-2 absolute top-5 left-5 px-10 py-2 rounded-lg cursor-pointer">
                     <p className="text-darkest font-funky text-md">Home</p>
                 </div>
             </Link>
